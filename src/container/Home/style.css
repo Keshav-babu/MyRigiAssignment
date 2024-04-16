@@ -34,10 +34,16 @@
     .container {
       flex-direction: column; /* Stack items vertically */
       height: auto; /* Auto height */
+      width: 100%;
     }
   
     .right {
       margin-right: 0; /* Remove margin for mobile */
       margin-top: 20px; /* Add margin to create space */
+    }
+    .left{
+        width: 100% !important;
+        margin: 0 12px;
+        padding-right: 0;
     }
 }

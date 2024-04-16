@@ -58,6 +58,10 @@ const Home = () => {
     };
   }, []);
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   const Footer = () => {
     if(isPostsLoading){
       return (
@@ -72,10 +76,17 @@ const Home = () => {
         </div>
       )
     }
-    if(isPostsLoading===false){
+    if(isPostsLoading===false &&allPosts.length>0){
       return <p  style={{
         color:'red'
       }}>That's all for now! Check back later for more updates.</p>
+    }
+    if(isPostsLoading===false &&allPosts.length===0){
+      return <>
+          <p>We can't find any posts </p>
+          <button onClick={handleRefresh}>refresh the page</button>
+      </>
+
     }
     
 
@@ -87,6 +98,7 @@ const Home = () => {
   const deletelocationState=()=>{
     window.history.replaceState({}, document.title, window.location.pathname);
 }
+
 
   
   return (
