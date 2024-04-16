@@ -3,7 +3,7 @@ import HOME_PAGE_CONSTANTS from "./constant";
 
 const initialState={
     isUsersLoading:false,
-    isPostsLoading:false,
+    isPostsLoading:true,
     allUsers:[],
     allPost:[]
 }
@@ -22,16 +22,23 @@ const homeReducer=(state=initialState,action)=>{
                 ...state,
                 isUsersLoading:false
             }
+        case HOME_PAGE_CONSTANTS.GET_ALL_POSTS_REQUEST:
+            return{
+                ...state,
+                isPostsLoading:true
+            }
         case HOME_PAGE_CONSTANTS.GET_ALL_POSTS_SUCCESS:
             return{
                 ...state,
                 allPost:[...state.allPost,...action.data.data||action.data],
                 pagination:action.data.pagination,
-                isPostsLoading:true
+                isPostsLoading:false,
+                hasMore:action.data?.pagination?.hasMore
             }
         case HOME_PAGE_CONSTANTS.GET_ALL_POSTS_FAILURE:
             return{
-                ...state
+                ...state,
+                isPostsLoading:false
             }
         case HOME_PAGE_CONSTANTS.CLEAR_ALL_POSTS:
             return{

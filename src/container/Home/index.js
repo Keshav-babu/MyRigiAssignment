@@ -9,7 +9,7 @@ import Users from "../../component/Users";
 import PostLayout from "../../component/Post/component/PostLayout";
 import Spinner from "../../component/Spinner";
 import { Virtuoso } from "react-virtuoso";
-import { debounce } from "../../config/constants";
+// import { debounce } from "../../config/constants";
 import {useLocation, useNavigate} from 'react-router-dom'
 
 const Home = () => {
@@ -19,6 +19,9 @@ const Home = () => {
 
   const allUsers = useSelector((state) => state?.home);
   const allPosts = useSelector((state) => state?.home?.allPost);
+  const hasMore = useSelector((state) => state?.home?.hasMore);
+  const isPostsLoading = useSelector((state) => state?.home?.isPostsLoading);
+  
 
   const dispatch = useDispatch();
   const location =useLocation();
@@ -26,8 +29,7 @@ const Home = () => {
   const scrollRef = useRef();
 
   const loadMorePosts = async () => {
-    await debounce(500);
-    dispatch(getAllPosts(page));
+    dispatch(getAllPosts({page}));
     setPage((prevPage) => prevPage + 1);
   };
 
@@ -57,17 +59,26 @@ const Home = () => {
   }, []);
 
   const Footer = () => {
-    return (
-      <div 
-        style={{
-          padding: '2rem',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <Spinner />
-      </div>
-    )
+    if(isPostsLoading){
+      return (
+        <div 
+          style={{
+            padding: '2rem',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Spinner />
+        </div>
+      )
+    }
+    if(isPostsLoading===false){
+      return <p  style={{
+        color:'red'
+      }}>That's all for now! Check back later for more updates.</p>
+    }
+    
+
   }
 
   
@@ -76,7 +87,6 @@ const Home = () => {
   const deletelocationState=()=>{
     window.history.replaceState({}, document.title, window.location.pathname);
 }
-
 
   
   return (
@@ -87,7 +97,7 @@ const Home = () => {
           <Virtuoso
             increaseViewportBy={200}
             data={post}
-            endReached={loadMorePosts}
+            endReached={hasMore&&loadMorePosts}
             style={{ height: '80vh' }}
             totalCount={post?.length}
             itemContent={(index) => <div
@@ -98,7 +108,7 @@ const Home = () => {
             </div>}
 
             ref={scrollRef}
-            components={{ Footer }}
+            components={{Footer}}
           />
         </div>
         {allUsers?.isUsersLoading && (
