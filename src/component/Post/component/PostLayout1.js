@@ -1,13 +1,9 @@
 
 import React, { useMemo } from "react";
 import "./style.css"
-import {useNavigate} from 'react-router-dom'
 
 
 const Post=({attachments})=>{
-  const data=attachments
-  console.log("data1234",data)
-
 
   const attachmentsData=useMemo(()=>{
 
@@ -22,9 +18,6 @@ const Post=({attachments})=>{
     });
     
   },[attachments])
-  console.log("attachmentsData",{attachmentsData});
-
-
 
   function renderItem(item) {
 

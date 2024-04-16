@@ -9,15 +9,12 @@ export function* getAllUsers(action) {
     try {
         const response = yield call(getAllUsersData,action.data)
         yield put(getAllUsersSuccess(response))
-        console.log("response",response)
     } catch (error) {
         yield put(getAllUsersFailure(error))
-        console.log("error",error)
     }
 }
 
 export function* getAllPosts(action){
-    console.log("action1234",action)
 
     try {
         const response = yield call(getAllPostsData,action.data)

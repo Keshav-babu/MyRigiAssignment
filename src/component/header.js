@@ -18,10 +18,7 @@ const Header = () => {
     const searchFunction = async (term) => {
         try {
             dispatch(getAllPosts({page,query:term}));
-            
-            console.log("Search term:", term);
         } catch (error) {
-            console.error('Error fetching search results:', error);
         }
     };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams,useLocation } from 'react-router-dom';
 import "./style.css"
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ import PostLayout from '../../component/Post/component/PostLayout';
 
 function Post() {
   const { id } = useParams();
-  console.log("postId",id)
 
     const post= useSelector((state) => state?.post?.posts);
     
@@ -18,20 +17,18 @@ function Post() {
 
   useEffect(() => {
     dispatch(getPost(id))
-    console.log("location",{location})
   }, [id]);
   const navigate = useNavigate();
   const location =useLocation()
 
   return (
     <div className='post-container'>
-        <div style={{border:"2px solid red",width:'fit-content'}}
+        <div style={{width:'fit-content'}}
             onClick={()=>{
                 navigate('/',{state: location.state})
-                // window.history.back()
             }}
         >
-            <img src={leftArrow}/>
+            <img src={leftArrow} alt='leftarrow' loading='lazy'/>
         </div>
       {post ? (
         <div>

@@ -18,7 +18,6 @@ export const getAllUsersData = async () => {
 export const getAllPostsData = async ( payload) => {
 
     const {page = 1,query=undefined} = payload
-    console.log("page1234",page,query)
     const config = {
         headers: {
             'Authorization': API_Key,

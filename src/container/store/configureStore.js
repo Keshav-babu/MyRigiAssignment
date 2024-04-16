@@ -4,18 +4,6 @@ import createSagaMiddleware from 'redux-saga'
 import rootReducer from "../reducers";
 import rootSaga from "../sagas";
 
-
-// function configureStore(cachedState="") {
-//     const sagaMiddleware = createSagaMiddleware();
-//     const store = createStore(
-//       rootReducer,
-//       applyMiddleware(sagaMiddleware)
-//     );
-//     sagaMiddleware.run(rootSaga);
-//     return store;
-//   }
-// export default configureStore;
-
 function configureStore(cachedState = {}) {
     const sagaMiddleware = createSagaMiddleware();
     
